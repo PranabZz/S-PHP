@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-require_once './app/core/View.php';
-
 use App\Core\Response;
 use App\Core\View;
 

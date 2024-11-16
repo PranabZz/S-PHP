@@ -1,16 +1,9 @@
 <?php
 
-require_once './app/core/Router.php';
-require_once './app/controllers/HomeController.php';
-require_once './app/controllers/Auth/LoginController.php';
-require_once './app/core/Response.php';
-require_once './app/services/Auth.php';
-require_once './app/core/Middleware.php';
-
-use App\Controllers\LoginController;
 use App\Core\Middleware;
 use App\Core\Router;
 use App\Controllers\HomeController;
+use App\Controllers\Auth\LoginController;
 
 $router = new Router();
 

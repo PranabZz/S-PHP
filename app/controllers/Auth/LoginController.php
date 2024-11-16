@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Auth;
 
-require_once './app/core/View.php';
-require_once './app/core/Request.php';
-require_once './app/controllers/Controller.php';
-require_once './app/services/Auth.php';
-
+use App\Controllers\Controller;
 use App\Core\View;
 use App\Core\Request;
 use App\Services\Auth;

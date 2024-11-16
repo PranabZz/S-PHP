@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <?php  print_r($_SESSION['message']) ?> 
+    <?php  $_SESSION['message'] ?> 
     <h2>Login Form</h2>
     <form method="POST" action="/login">
         <label for="username">Username:</label>
