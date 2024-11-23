@@ -12,5 +12,6 @@ $router->get('/home', HomeController::class, 'index', Middleware::class);
 $router->get('/', HomeController::class, 'index');
 $router->get('/login', LoginController::class, 'index');
 $router->post('/login', LoginController::class, 'login');
+$router->post('/logout', LoginController::class, 'logout');
 
 $router->dispatch();  

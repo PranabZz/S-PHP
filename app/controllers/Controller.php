@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-
-use App\Core\Response;
-use App\Core\View;
 use App\Core\Database;
 
 class Controller

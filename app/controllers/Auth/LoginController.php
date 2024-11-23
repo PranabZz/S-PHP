@@ -33,5 +33,10 @@ class LoginController extends Controller
             redirect('/login','error in login try again');
         }
     }
+
+    public function logout(){
+        Auth::logout();
+        redirect('/login');
+    }
 }
 

@@ -1,5 +1,10 @@
 <?php 
-echo $message['nested_message'];
-echo "<br>";
-echo "this is static";
+echo "Welcome user " . $_COOKIE['User'];
+
 ?>
+
+
+<p>Click this button to logout</p>
+<form action="/logout" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
