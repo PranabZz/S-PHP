@@ -3,14 +3,13 @@
 namespace App\Core;
 use App\Core\Response; // PHP cannot support multiple class inhertance so we use namepsace 
 
-class Middleware
+class GuestMiddleware
 {
     public function handel()
     {
-        if (!$this->auth()) {
-            return false;
+        if ($this->auth()) {
+            return "/";
         }
-        return true;
     }
 
     public function auth()

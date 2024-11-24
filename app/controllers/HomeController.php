@@ -16,5 +16,15 @@ class HomeController
 
         View::render('test.php', $data);
     }
+
+    public function test()
+    {
+
+        $data = [
+            'test' => ["nested_message" => "nested message"]
+        ];
+
+        View::render('index.php', $data);
+    }
 }
 

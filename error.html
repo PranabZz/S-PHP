@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Help Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #2d3436;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .error-column {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .error-column:first-child {
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 30px;
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #c50000;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #c50000;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2d3436;
+        }
+
+        p {
+            color: #636e72;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .error-details {
+            background: rgba(255, 107, 107, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            margin-top: 20px;
+        }
+
+        .error-code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #ff6b6b;
+            margin-top: 10px;
+        }
+
+        .solutions {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .solution-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            transition: transform 0.2s ease;
+        }
+
+        .solution-item:hover {
+            transform: translateX(5px);
+        }
+
+        .solution-number {
+            background: #ff6b6b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary-button {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .secondary-button {
+            background: #e9ecef;
+            color: #2d3436;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .error-column {
+                padding: 30px;
+            }
+
+            .error-column:first-child {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-column">
+            <div class="icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z"/>
+                </svg>
+            </div>
+            <h1>We Hit a Snag</h1>
+            <p>Don't worry! This is usually easy to fix. Here's what went wrong:</p>
+            <div class="error-details">
+                <strong>Error Details:</strong>
+                <p id="error-message">Loading...</p>
+                <div class="error-code" id="error-code"></div>
+            </div>
+            <div class="action-buttons">
+                <button class="button primary-button" onclick="window.location.reload()">Try Again</button>
+                <button class="button secondary-button" onclick="window.history.back()">Go Back</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const errorMessage = params.get('error') || "Unknown error occurred.";
+        document.getElementById('error-message').textContent = decodeURIComponent(errorMessage);
+    </script>
+</body>
+</html>
