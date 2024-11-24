@@ -3,7 +3,7 @@
 namespace App\Core;
 
 use App\Core\Response;
-use App\Core\Middleware;
+use App\Middleware;
 
 /* 
     A Router class that supports routing to controller methods for GET and POST requests.

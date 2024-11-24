@@ -1,7 +1,7 @@
 <?php
 
-use App\Core\Middleware;
-use App\Core\GuestMiddleware;
+use App\Middleware\Middleware;
+use App\Middleware\GuestMiddleware;
 use App\Core\Router;
 use App\Controllers\HomeController;
 use App\Controllers\Auth\LoginController;
