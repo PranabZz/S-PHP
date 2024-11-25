@@ -33,9 +33,9 @@ class HomeController
         redirect('/');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $id = $_GET['id'];
+        // $id = $_GET['id'];
         $user = new User();
         $data = $user->findByID($id);
 
@@ -60,7 +60,7 @@ class HomeController
         $req = new Request;
         $request = $req->request();
         $id = $request['id'];
-        $user->delete($id);
+        $user->delete($id, asd);
 
         redirect('/');
     }

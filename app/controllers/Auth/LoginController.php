@@ -33,7 +33,7 @@ class LoginController extends Controller
             Auth::login($result[0]);
             redirect('/home');
         } else {
-            redirect('/ login','error in login try again');
+            redirect('/login','error in login try again');
         }
     }
 

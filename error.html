@@ -11,158 +11,216 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-color: #ff6b6b;
+            --primary-dark: #ff5252;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --error-light: rgba(255, 107, 107, 0.05);
+            --error-border: rgba(255, 107, 107, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            color: #2d3436;
+            color: var(--text-primary);
+            line-height: 1.6;
         }
 
         .container {
             max-width: 1200px;
             width: 95%;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px var(--shadow-color);
             overflow: hidden;
             display: flex;
             flex-direction: row;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .error-column {
             flex: 1;
-            padding: 40px;
+            padding: 48px;
+            transition: all 0.3s ease;
         }
 
         .error-column:first-child {
-            background: #f8f9fa;
-            border-right: 1px solid #e9ecef;
+            background: var(--bg-primary);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
         }
 
         .icon {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 30px;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 32px;
+            animation: pulse 2s infinite ease-in-out;
         }
 
         .icon svg {
             width: 100%;
             height: 100%;
-            fill: #c50000;
+            fill: var(--primary-color);
+            transition: fill 0.3s ease;
+        }
+
+        .icon svg:hover {
+            fill: var(--primary-dark);
         }
 
         h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #c50000;
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #2d3436;
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
         p {
-            color: #636e72;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
             font-size: 1.1rem;
+            font-weight: 400;
         }
 
         .error-details {
-            background: rgba(255, 107, 107, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            margin-top: 20px;
+            background: var(--error-light);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--error-border);
+            margin-top: 24px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .error-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.1);
         }
 
         .error-code {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            color: #ff6b6b;
-            margin-top: 10px;
-        }
-
-        .solutions {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .solution-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-            transition: transform 0.2s ease;
-        }
-
-        .solution-item:hover {
-            transform: translateX(5px);
-        }
-
-        .solution-number {
-            background: #ff6b6b;
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 6px;
+            display: inline-block;
         }
 
         .action-buttons {
-            margin-top: 30px;
+            margin-top: 36px;
             display: flex;
-            gap: 15px;
+            gap: 16px;
         }
 
         .button {
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
             border: none;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        .button:active {
+            transform: translateY(0);
         }
 
         .primary-button {
-            background: #ff6b6b;
+            background: var(--primary-color);
             color: white;
         }
 
+        .primary-button:hover {
+            background: var(--primary-dark);
+        }
+
         .secondary-button {
-            background: #e9ecef;
-            color: #2d3436;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .secondary-button:hover {
+            background: var(--bg-secondary);
         }
 
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
+                margin: 16px;
             }
 
             .error-column {
-                padding: 30px;
+                padding: 32px;
             }
 
             .error-column:first-child {
                 border-right: none;
-                border-bottom: 1px solid #e9ecef;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1a1a1a;
+                --bg-secondary: #2d2d2d;
+                --text-primary: #ffffff;
+                --text-secondary: #a0a0a0;
+                --shadow-color: rgba(0, 0, 0, 0.3);
+                --error-light: rgba(255, 107, 107, 0.1);
+                --error-border: rgba(255, 107, 107, 0.3);
             }
         }
     </style>
@@ -183,8 +241,18 @@
                 <div class="error-code" id="error-code"></div>
             </div>
             <div class="action-buttons">
-                <button class="button primary-button" onclick="window.location.reload()">Try Again</button>
-                <button class="button secondary-button" onclick="window.history.back()">Go Back</button>
+                <button class="button primary-button" onclick="window.location.reload()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    Try Again
+                </button>
+                <button class="button secondary-button" onclick="window.history.back()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Go Back
+                </button>
             </div>
         </div>
     </div>

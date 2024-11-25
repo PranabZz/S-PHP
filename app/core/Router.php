@@ -38,38 +38,71 @@ class Router
 
     public function dispatch()
     {
-        // dispath all the endpoints declared by the user 
-        $method = $_SERVER['REQUEST_METHOD'];  // A GET POST PUT PATH method 
-        $route = $_SERVER['REQUEST_URI'];   // endpoint requestd
+        // Dispatch all the endpoints declared by the user
+        $method = $_SERVER['REQUEST_METHOD'];  // GET, POST, etc.
+        $route = $_SERVER['REQUEST_URI'];     // Requested endpoint
 
-        // Removing any query from the url 
+        // Removing any query from the URL
         $route = strtok($route, '?');
 
-        if ($method == 'GET' && isset($this->getRoutes[$route])) {
-            $this->handel_request($this->getRoutes[$route]);
-        } elseif ($method == 'POST' && isset($this->postRoutes[$route])) {
-            $this->handel_request($this->postRoutes[$route]);
-        } else {
-            echo "Route not found!";
+        $matchedRoute = null;
+        $params = [];
+
+        // Match dynamic routes with placeholders like /edit/{id}
+        if ($method == 'GET') {
+            foreach ($this->getRoutes as $definedRoute => $config) {
+                $matchedRoute = $this->matchDynamicRoute($definedRoute, $route, $params);
+                if ($matchedRoute) {
+                    $this->handel_request($config, $params);
+                    return;
+                }
+            }
+        } elseif ($method == 'POST') {
+            foreach ($this->postRoutes as $definedRoute => $config) {
+                $matchedRoute = $this->matchDynamicRoute($definedRoute, $route, $params);
+                if ($matchedRoute) {
+                    $this->handel_request($config, $params);
+                    return;
+                }
+            }
         }
+
+        // If no route matches
+        echo "Route not found!";
     }
 
-    private function handel_request($route)
+    private function matchDynamicRoute($definedRoute, $currentRoute, &$params)
     {
-        // $routes['middelware] has middleware that the user wants to use in the routes
-        $middelware = $route['middelware'];
-        if ($middelware) {
-            $response_from_middleware = $this->handelMiddleware($middelware);
+        $definedRoutePattern = preg_replace('/\{[a-zA-Z0-9_]+\}/', '([^/]+)', $definedRoute);
+        $definedRoutePattern = str_replace('/', '\/', $definedRoutePattern);
+
+        if (preg_match('/^' . $definedRoutePattern . '$/', $currentRoute, $matches)) {
+            array_shift($matches); // Remove full match from $matches
+            $params = $matches;    // Remaining matches are the parameters
+            return true;
+        }
+
+        return false;
+    }
+
+    private function handel_request($route, $params = [])
+    {
+        // Middleware handling
+        $middleware = $route['middelware'];
+        if ($middleware) {
+            $response_from_middleware = $this->handelMiddleware($middleware);
             if (is_bool($response_from_middleware)) {
                 if (!$response_from_middleware) {
-                    return Response::response('403', 'Unautorized');
+                    return Response::response('403', 'Unauthorized');
                 }
             } else {
                 redirect($response_from_middleware);
             }
         }
-        $this->callController($route);
+
+        $this->callController($route, $params);
     }
+
 
     private function handelMiddleware($middelware)
     {
@@ -85,19 +118,16 @@ class Router
         }
     }
 
-    private function callController($route)
+    private function callController($route, $params = [])
     {
-        // we fetch the controller from the route that the user has defined 
         $controllerName = $route['controller'];
         $methodName = $route['method'];
 
-        // class_exists is a in built PHP function that is going to test weather a class is preset or not
         if (class_exists($controllerName)) {
-
             $controller = new $controllerName();
-
             if (method_exists($controller, $methodName)) {
-                call_user_func([$controller, $methodName]);
+                // Pass parameters to the controller method
+                call_user_func_array([$controller, $methodName], $params);
             } else {
                 echo "Method $methodName not found in $controllerName.";
             }
@@ -105,4 +135,5 @@ class Router
             echo "Controller $controllerName not found.";
         }
     }
+
 }
