@@ -5,7 +5,10 @@ namespace App\Controllers\Auth;
 use App\Controllers\Controller;
 use App\Core\View;
 use App\Core\Request;
+use App\Models\User;
 use App\Services\Auth;
+use App\Models;
+
 
 class LoginController extends Controller
 {
@@ -17,7 +20,7 @@ class LoginController extends Controller
     {
         $req = new Request;
         $request = $req->request();
-
+       
         $username = $request["username"];
         $password = $request["password"];
 
@@ -30,7 +33,7 @@ class LoginController extends Controller
             Auth::login($result[0]);
             redirect('/home');
         } else {
-            redirect('/login','error in login try again');
+            redirect('/ login','error in login try again');
         }
     }
 

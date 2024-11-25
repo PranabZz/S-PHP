@@ -14,6 +14,9 @@ $router->get('/', HomeController::class, 'index', Middleware::class);
 $router->get('/login', LoginController::class, 'index', GuestMiddleware::class);
 $router->post('/login', LoginController::class, 'login');
 $router->post('/logout', LoginController::class, 'logout');
-$router->get('/page', HomeController::class, 'test');
+$router->post('/create', HomeController::class, 'create');
+$router->get('/edit', HomeController::class, 'edit');
+$router->post('/update', HomeController::class, 'update');
+$router->post('/delete', HomeController::class, 'delete');
 
 $router->dispatch();  
