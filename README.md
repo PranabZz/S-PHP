@@ -51,11 +51,6 @@ S-PHP/
 ├── routes/
 │   └── web.php         # Defines routes for the application
 │
-├── system/
-│   ├── Core/
-│   ├── Database/
-│   └── Helpers/
-│
 └── .gitignore
 ```
 
@@ -107,7 +102,7 @@ class HomeController
     public function index()
     {
         // Renders the view
-        return View::make('home.index');
+        return View::render('home.index');
     }
 }
 ```
