@@ -25,7 +25,7 @@
 Clone this repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/yourusername/S-PHP.git
+git clone https://github.com/PranabZz/S-PHP.git
 ```
 
 ### 2. Install Dependencies (Optional)
