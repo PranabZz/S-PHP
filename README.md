@@ -1,4 +1,8 @@
-# S-PHP <img src="./logo.png" alt="Logo" width="100" height="auto">
+# S-PHP 
+
+<p align="center">
+  <img src="./logo.png" alt="Logo" width="100" height="auto">
+</p>
 
 **S-PHP** is a lightweight, simple MVC (Model-View-Controller) PHP framework designed to help developers build scalable and maintainable web applications. It's perfect for those who need a quick start without the complexity of heavier frameworks.
 
