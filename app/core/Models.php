@@ -16,6 +16,8 @@ class Models
 
     protected $fillables = [];
 
+    protected $hidden_fields;
+
     public function __construct()
     {
         $this->env = require('./app/config/config.php');

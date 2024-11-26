@@ -35,32 +35,31 @@ class HomeController
 
     public function edit($id)
     {
-        // $id = $_GET['id'];
         $user = new User();
         $data = $user->findByID($id);
 
         View::render('edit.php', $data);
     }
 
-    public function update()
+    public function update($id)
     {
         $user = new User();
         $req = new Request;
         $request = $req->request();
-        $id = $request['id'];
+
         $user->update($request , $id);
 
         redirect('/');
     }
 
-    public function delete()
+    public function delete($id)
     {
         
         $user = new User();
         $req = new Request;
         $request = $req->request();
-        $id = $request['id'];
-        $user->delete($id, asd);
+    
+        $user->delete($id);
 
         redirect('/');
     }

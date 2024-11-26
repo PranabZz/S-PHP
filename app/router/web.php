@@ -17,6 +17,6 @@ $router->post('/logout', LoginController::class, 'logout');
 $router->post('/create', HomeController::class, 'create');
 $router->get('/edit/{id}', HomeController::class, 'edit');
 $router->post('/update/{id}', HomeController::class, 'update');
-$router->post('/delete', HomeController::class, 'delete');
+$router->post('/delete/{id}', HomeController::class, 'delete');
 
 $router->dispatch();  

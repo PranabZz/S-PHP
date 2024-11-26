@@ -209,8 +209,7 @@
                                     <button type="button" class="btn-edit">
                                         <a href="/edit/<?= $user['id'] ?>">Edit</a>
                                     </button>
-                                    <form method="POST" action="/delete">
-                                        <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                                    <form method="POST" action="/delete/<?= $user['id'] ?>">
                                         <button type="submit" class="btn-delete">Delete</button>
                                     </form>
                                 </td>

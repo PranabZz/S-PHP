@@ -104,9 +104,7 @@
         <h1>Edit User Profile</h1>
 
         <?php if (!empty($data)): ?>
-            <form method="POST" action="/update">
-                <input type="hidden" id="id" name="id" value="<?= $data['id'] ?>" required>
-                
+            <form method="POST" action="/update/<?=$data['id']?>">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input 
