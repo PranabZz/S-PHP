@@ -35,6 +35,7 @@ composer install
 ```
 ### Project Structure
 
+```bash
 S-PHP/
 │
 ├── app/
@@ -54,6 +55,7 @@ S-PHP/
 │   └── Helpers/
 │
 └── .gitignore
+```
 
 ### Usage
 
