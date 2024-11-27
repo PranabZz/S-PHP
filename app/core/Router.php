@@ -60,9 +60,15 @@ class Router
         } elseif ($method == 'POST') {
             foreach ($this->postRoutes as $definedRoute => $config) {
                 $matchedRoute = $this->matchDynamicRoute($definedRoute, $route, $params);
+
                 if ($matchedRoute) {
-                    $this->handel_request($config, $params);
-                    return;
+                    if (validateCsrfToken($_SESSION['csrf_token'])) {
+                        $_POST = sanitizeInput($_POST);
+                        $this->handel_request($config, $params);
+                        return;
+                    }else{
+                        throw new \Exception("Cannot verify CSRF token");
+                    }
                 }
             }
         }

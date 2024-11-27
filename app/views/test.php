@@ -177,6 +177,7 @@
     <div class="container">
         <h1>User Management System</h1>
         <form method="POST" action="/logout" class="create-form">
+            <?= csrf(); ?>
             <button type="submit" class="btn-create">Logout User</button>
         </form>
         <br>
