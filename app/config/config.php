@@ -6,5 +6,7 @@
 return [
     'host' => 'localhost',
     'database' => 'start',
+    'username' => 'root',
+    'password' => 'root'
 ];
  

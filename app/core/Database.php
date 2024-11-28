@@ -17,7 +17,7 @@ class Database
   {
     $dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['database'];
 
-    $this->connection = new \PDO($dsn, 'root', 'root');
+    $this->connection = new \PDO($dsn, $config['username'], $config['password']);
   }
 
   /* 
