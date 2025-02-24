@@ -18,5 +18,7 @@ $router->post('/create', HomeController::class, 'create');
 $router->get('/edit/{id}', HomeController::class, 'edit');
 $router->post('/update/{id}', HomeController::class, 'update');
 $router->post('/delete/{id}', HomeController::class, 'delete');
+$router->get('/portfolio', HomeController::class, 'portfolio', GuestMiddleware::class);
+
 
 $router->dispatch();  

@@ -25,6 +25,11 @@ class Router
         $controller: Controller we use to fetch some data
         $method: method used from that controller 
     */
+
+    /* 
+        [['/home'] => ['HomeController', 'index', 'Middleware']];
+    */
+    
     public function get($route, $controller, $method, $middelware = null)
     {
         // getRoutes will have the route stored as well has the controller and the method it is suposed to call
@@ -74,7 +79,7 @@ class Router
         }
 
         // If no route matches
-        echo "Route not found!";
+        View::render('404.html');
     }
 
     private function matchDynamicRoute($definedRoute, $currentRoute, &$params)

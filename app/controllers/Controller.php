@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Database;
+use App\Services\JwtAuthService;
 
 class Controller
 {
@@ -13,6 +14,8 @@ class Controller
     {
         $this->env = require('./app/config/config.php');
         $this->db = new Database($this->env);
+
+
     }
 }
 

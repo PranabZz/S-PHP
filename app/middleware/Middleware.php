@@ -7,18 +7,11 @@ class Middleware
 {
     public function handel()
     {
-        if (!$this->auth()) {
+        if($_SESSION["user_token"]){
+            return true;
+        }else{
             return false;
         }
-        return true;
-    }
-
-    public function auth()
-    {
-        if (!$_SESSION['user']) {
-            return false;
-        }
-        return true;
     }
 }
 

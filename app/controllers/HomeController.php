@@ -64,6 +64,10 @@ class HomeController
         redirect('/');
     }
 
+    public function portfolio(){
+        View::render('cms.html');
+    }
+    
     public function test()
     {
 
