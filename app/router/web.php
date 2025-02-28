@@ -21,4 +21,5 @@ $router->post('/delete/{id}', HomeController::class, 'delete');
 $router->get('/portfolio', HomeController::class, 'portfolio', GuestMiddleware::class);
 
 
-$router->dispatch();  
+$router->dispatch();
+

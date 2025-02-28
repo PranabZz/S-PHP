@@ -65,7 +65,7 @@ class HomeController
     }
 
     public function portfolio(){
-        View::render('cms.html');
+        View::render('form.html');
     }
     
     public function test()

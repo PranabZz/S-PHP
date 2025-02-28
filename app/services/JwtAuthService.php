@@ -8,7 +8,7 @@ class JwtAuthService
     private $jwt_secret = "pranab_key";
     private $header = ["alg" => "HS256", "type" => "JWT"];
     private static $instance = null;
-    private $accessTokenExpiry = 900; // 15 minutes
+    private $accessTokenExpiry = 1; // 15 minutes
     private $refreshTokenExpiry = 604800; // 7 days
 
     // Private constructor to prevent multiple instances

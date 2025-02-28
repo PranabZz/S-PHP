@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResearchDev | Understanding Web Performance</title>
+    <!-- Import Poppins font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/poppins/2.1.1/poppins.min.css">
+    <style>
+        /* Base styles */
+        :root {
+            --text-primary: #292929;
+            --text-secondary: #757575;
+            --accent: #03a87c;
+            --background: #ffffff;
+            --light-gray: #f9f9f9;
+            --border: #e6e6e6;
+            --code-bg: #f3f3f3;
+            --code-text: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+
+        /* Header */
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            background-color: var(--text-primary);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Main content */
+        main {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Article */
+        article {
+            padding: 0 0 2rem 0;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 2rem 0 0.75rem;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code blocks */
+        pre {
+            background-color: var(--code-bg);
+            border-radius: 3px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        code {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--code-text);
+        }
+
+        p code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+
+        /* Meta information */
+        .meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-pic {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            background-color: var(--light-gray);
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .author-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .read-time {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-left: auto;
+        }
+
+        /* Article image */
+        .article-image {
+            width: 100%;
+            height: 300px;
+            background-color: var(--light-gray);
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--light-gray);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .divider {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .divider span {
+            display: inline-block;
+            height: 5px;
+            width: 5px;
+            border-radius: 50%;
+            background-color: var(--text-secondary);
+            margin: 0 3px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--light-gray);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Research citation */
+        .citation {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .citation-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .citation-authors {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .citation-journal {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+            background-color: var(--light-gray);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">Research<span>Dev</span></a>
+        <!-- <nav>
+                <a href="#">Home</a>
+                <a href="#">Research</a>
+                <a href="#">Topics</a>
+                <a href="#">About</a>
+            </nav> -->
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <h1>Core Web Vitals: A Research-Based Approach to Performance Optimization</h1>
+            <div class="subtitle">Analysis of key metrics that impact user experience across various browsing environments</div>
+            
+            <div class="meta">
+                <div class="author">
+                    <div class="author-pic"></div>
+                    <div class="author-info">
+                        <span class="author-name">Dr. Sarah Chen</span>
+                        <span class="author-date">Feb 25, 2025 · Updated Feb 25, 2025</span>
+                    </div>
+                </div>
+                <span class="read-time">8 min read</span>
+            </div>
+            
+            <div class="article-image">Featured image: Web Performance Metrics Visualization</div>
+            
+            <p>Web performance optimization has evolved beyond simple speed metrics. Google's Core Web Vitals have established a framework for quantifying user experience through specific, measurable criteria. This research examines how these metrics correlate with user engagement across different device types and network conditions.</p>
+            
+            <div class="citation">
+                <div class="citation-title">Core Web Vitals as UX Predictors: A Longitudinal Study</div>
+                <div class="citation-authors">Johnson, M., Patel, K., & Nguyen, T. (2024)</div>
+                <div class="citation-journal">Journal of Web Engineering, 18(3), 245-267</div>
+            </div>
+            
+            <h2>Largest Contentful Paint (LCP)</h2>
+            
+            <p>Our research indicates that LCP is the strongest predictor of user bounce rates across all studied platforms. Sites achieving an LCP under 2.5 seconds showed 24% lower bounce rates compared to slower-loading counterparts. The following code demonstrates a technique for optimizing image loading to improve LCP:</p>
+            
+            <pre><code>// Implement priority loading for hero images
+const hero = document.querySelector('.hero-image');
+if (hero) {
+  // Mark as high priority
+  hero.setAttribute('fetchpriority', 'high');
+  
+  // Preload critical image
+  const preloadLink = document.createElement('link');
+  preloadLink.rel = 'preload';
+  preloadLink.as = 'image';
+  preloadLink.href = hero.src;
+  document.head.appendChild(preloadLink);
+}</code></pre>
+            
+            <p>When implementing these optimizations across our test sites, we observed LCP improvements averaging 1.2 seconds, with particularly significant gains on mobile devices using 4G connections.</p>
+            
+            <h2>Cumulative Layout Shift (CLS)</h2>
+            
+            <p>Our data shows a strong negative correlation between CLS scores and conversion rates. For every 0.1 increase in CLS, we observed a 3.8% decrease in form completion rates. Here's how fixed sizing can help prevent layout shifts:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element Type</th>
+                        <th>Common Issue</th>
+                        <th>Best Practice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Images</td>
+                        <td>No dimensions specified</td>
+                        <td>Set width/height attributes</td>
+                    </tr>
+                    <tr>
+                        <td>Advertisement</td>
+                        <td>Dynamic size changes</td>
+                        <td>Reserve fixed space</td>
+                    </tr>
+                    <tr>
+                        <td>Fonts</td>
+                        <td>FOUT/FOIT issues</td>
+                        <td>Use font-display: optional</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="divider">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <p>Based on our extensive field testing, we recommend a holistic approach to performance optimization that prioritizes user-centric metrics over raw loading speed. The implementation of these research-based strategies resulted in a 17% increase in engagement metrics across our sample of 240 websites spanning e-commerce, media, and SaaS industries.</p>
+            
+            <div class="tags">
+                <span class="tag">Web Performance</span>
+                <span class="tag">Core Web Vitals</span>
+                <span class="tag">Research</span>
+                <span class="tag">UX</span>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-inner">
+            <p class="footer-text">© 2025 ResearchDev · Academic approach to web development</p>
+        </div>
+    </footer>
+</body>
+</html>
