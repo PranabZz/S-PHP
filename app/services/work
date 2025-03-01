@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Services;
+
+require_once __DIR__ . '/JobQueue.php';
+require_once __DIR__ . '/Job.php';
+
+$jobQueue = new JobQueue();
+
+echo "📢 Sending out resumes... Looking for work! 🏗️\n";
+
+// Set up a signal handler for graceful exit
+pcntl_signal(SIGTERM, function () {
+    echo "🚪 Exiting job worker...\n";
+    exit(0);
+});
+
+while (true) {
+    $jobs = $jobQueue->getJobs();
+
+    if (empty($jobs)) {
+        echo "😴 No jobs available... Waiting...\n";
+        sleep(2); // Prevents excessive CPU usage
+        continue;
+    }
+
+    echo "🎉 Got some work to do! Let's get started! 🚀\n";
+
+    $jobData = $jobs[0];
+
+    // Validate the job data
+    if (!isset($jobData['taskName']) || !isset($jobData['taskData'])) {
+        echo "⚠️ Invalid job data found. Skipping... ⏭️\n";
+        file_put_contents('error.log', "⚠️ Invalid job data: " . print_r($jobData, true) . "\n", FILE_APPEND);
+        $jobQueue->removeJob(0); // Remove corrupted job
+        continue;
+    }
+
+    $job = new Job($jobData['taskName'], $jobData['taskData']);
+    echo "🛠️ Processing job: {$jobData['taskName']}...\n";
+    $job->execute();
+    $jobQueue->removeJob(0);
+
+    echo "✅ Job completed and removed from queue! 🎯\n";
+    sleep(1);
+}

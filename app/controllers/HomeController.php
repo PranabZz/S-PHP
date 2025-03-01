@@ -6,6 +6,8 @@ use App\Core\Request;
 use App\Core\View;
 use App\Models\User;
 use App\Models;
+use App\Services\SendMail;
+
 
 class HomeController
 {
@@ -15,8 +17,8 @@ class HomeController
         $user = new User();
         $req = new Request;
         $request = $req->request();
-        
-        $data = $user->select(['id','username']);
+
+        $data = $user->select(['id', 'username']);
 
         View::render('test.php', $data);
     }
@@ -27,9 +29,10 @@ class HomeController
         $user = new User();
         $req = new Request;
         $request = $req->request();
-        
-        $user->create($request);
 
+        $user = $user->create($request);
+    
+        SendMail::sendMail('pranabkc191@gmail.com', 'Welcome', 'Welcome to our website!');
         redirect('/');
     }
 
@@ -47,27 +50,28 @@ class HomeController
         $req = new Request;
         $request = $req->request();
 
-        $user->update($request , $id);
+        $user->update($request, $id);
 
         redirect('/');
     }
 
     public function delete($id)
     {
-        
+
         $user = new User();
         $req = new Request;
         $request = $req->request();
-    
+
         $user->delete($id);
 
         redirect('/');
     }
 
-    public function portfolio(){
-        View::render('form.html');
+    public function portfolio()
+    {
+        View::render('static.html');
     }
-    
+
     public function test()
     {
 
