@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'pranab/s-php',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'bc84a8464671550319e0caae5a892bdb7960f599',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'pranab/s-php' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'bc84a8464671550319e0caae5a892bdb7960f599',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
