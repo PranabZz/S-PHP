@@ -1,0 +1,8 @@
+.git/
+.data/
+vendor/
+.dockerignore
+.env.example
+.gitignore
+docker-compose.yaml
+Dockerfile

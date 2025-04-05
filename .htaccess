@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Allow access to the "public" directory and its contents
+RewriteCond %{REQUEST_URI} ^/public/
+RewriteRule ^ - [L]
+
+# Redirect all other requests to "index.php"
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^ index.php [L]
