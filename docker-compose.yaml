@@ -21,6 +21,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    command: sh entrypoint.sh
     depends_on:
       mysql:
         condition: service_healthy

@@ -3,3 +3,4 @@ node_modules
 vendor
 .vscode
 .data
+/app/services/jobs.json

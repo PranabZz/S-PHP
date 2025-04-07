@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-require_once './SMTPMailer.php';
-
-// use App\Services\SMTPMailer;
+use App\Services\SMTPMailer;
 use Exception;
 
 class Job
