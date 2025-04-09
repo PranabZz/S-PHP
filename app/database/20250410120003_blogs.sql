@@ -1,0 +1,23 @@
+CREATE TABLE blogs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    seo_title VARCHAR(255),
+    seo_description TEXT,
+    seo_keywords TEXT,
+    slug VARCHAR(255) UNIQUE,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES category(id),
+    tags VARCHAR(255),
+    image VARCHAR(255),
+    excerpt TEXT,
+    meta_title VARCHAR(255),
+    meta_description TEXT,
+    meta_keywords TEXT,
+    is_featured BOOLEAN DEFAULT FALSE,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    published_at TIMESTAMP NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

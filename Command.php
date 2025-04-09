@@ -15,9 +15,10 @@ class Command
      */
     private array $commands = [
         'up' => 'php -S localhost:8000',
-        'work' => 'cd app/services && php work'
+        'work' => 'cd app/services && php work',
+        'migrate' => 'cd app/database && php init.php'
     ];
-    
+
     /**
      * Available file creation commands
      * 
@@ -27,6 +28,12 @@ class Command
         'views' => [
             'path' => 'app/views/{name}.php',
             'template' => '<!-- View File: {basename} -->',
+            'type' => null,
+            'namespace' => null
+        ],
+        'migration' => [
+            'path' => 'app/database/{date}_{name}.sql',
+            'template' => '--Your sql code',
             'type' => null,
             'namespace' => null
         ],
@@ -94,7 +101,6 @@ class Command
     private function runCommand(string $cmd): void
     {
         $this->showSuccess("Running: " . $this->commands[$cmd]);
-        
         // Use passthru to show command output in real-time
         passthru($this->commands[$cmd]);
     }
@@ -114,7 +120,10 @@ class Command
         }
 
         $config = $this->fileCommands[$type];
-        $filePath = str_replace('{name}', $name, $config['path']);
+        $date = date('YmdHis');
+        $filePath = str_replace('{date}', $date, $config['path']);
+
+        $filePath = str_replace('{name}', $name, $filePath);
         $fullPath = $this->getFullPath($filePath);
         $dirPath = dirname($fullPath);
 
@@ -134,7 +143,7 @@ class Command
         }
 
         // Generate content based on type
-        if ($type === 'views') {
+        if ($type === 'views' || $type === 'migration') {
             $basename = basename($name);
             $content = str_replace('{basename}', $basename, $config['template']);
         } else {
@@ -162,25 +171,23 @@ class Command
     {
         // Extract class name from path
         $className = basename($path);
-        
+
         // Check if path contains directories (indicating a sub-namespace)
         $pathParts = explode('/', $path);
         $className = array_pop($pathParts); // Remove and get the last part (class name)
-        
+
         // Default namespace is the base one from config
         $namespace = $config['namespace'];
-        
+
         // If we have subdirectories, extend the namespace
         if (!empty($pathParts)) {
             $subNamespace = implode('\\', array_map('ucfirst', $pathParts));
             $namespace .= '\\' . $subNamespace;
         }
-        
         // Get base class information
         $baseClassFullName = $config['baseClass'];
         $baseClassParts = explode('\\', $baseClassFullName);
         $baseClassName = end($baseClassParts);
-        
         return [$namespace, $className, $baseClassName, $baseClassFullName];
     }
 
@@ -199,7 +206,6 @@ class Command
         $content = "<?php\n\nnamespace {$namespace};\n\n";
         $content .= "use {$baseClassFullName};\n\n";
         $content .= "/**\n * {$className} {$type}\n */\nclass {$className} extends {$baseClassName}\n{\n    // TODO: Implement {$type} functionality\n}\n";
-        
         return $content;
     }
 
@@ -229,6 +235,7 @@ class Command
         echo "🔹 php do middleware Name  → Create a middleware\n";
         echo "🔹 php do model Name       → Create a model\n";
         echo "🔹 php do help             → Show this help menu\n";
+        echo "🔹 php do migration Name   → Create a migration file\n";
     }
 
     /**

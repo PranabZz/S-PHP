@@ -51,12 +51,16 @@ function redirect($url, $message = "")
 
 function loadEnv($filePath) {
     if (!file_exists($filePath)) {
-        return false;
+        dd("ENV FILE NOT FOUND at $filePath");
     }
+
+    $envData = [];
 
     $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) {
+        $line = trim($line);
+
+        if ($line === '' || str_starts_with($line, '#')) {
             continue;
         }
 
@@ -64,15 +68,29 @@ function loadEnv($filePath) {
         $key = trim($key);
         $value = trim($value);
 
-        if (!array_key_exists($key, $_ENV)) {
-            $_ENV[$key] = $value;
-        }
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+        putenv("$key=$value");
+
+        $envData[$key] = $value;
     }
+
 
     return true;
 }
 
+
 loadEnv(__DIR__ . '/.env');
+
+function env($key, $default = null) {
+    if (isset($_ENV[$key])) {
+        return $_ENV[$key];
+    }
+
+    $value = getenv($key);
+    return $value !== false ? $value : $default;
+}
+
 
 function dd($arr)
 {
