@@ -30,7 +30,7 @@ class Auth
 
         $tokens = self::$jwtAuthService->generateTokens($userId, $username);
 
-        session_start();
+        if(!isset($_SESSION)) session_start();
         $_SESSION['user_token'] = $tokens['access_token'];
         $_SESSION['refresh_token'] = $tokens['refresh_token']; // Store refresh token
 
@@ -42,7 +42,7 @@ class Auth
 
     public static function logout()
     {
-        session_start();
+        if(!isset($_SESSION)) session_start();
         session_destroy();
 
         setcookie("refresh_token", "", time() - 3600, "/");
@@ -52,7 +52,7 @@ class Auth
 
     public static function user()
     {
-        session_start();
+        if(!isset($_SESSION)) session_start();
         self::initialize();
 
         $accessToken = $_SESSION['user_token'] ?? null;
@@ -89,7 +89,7 @@ class Auth
     public static function refresh()
     {
         self::initialize();
-        session_start();
+        if(!isset($_SESSION)) session_start();
 
         $refreshToken = $_SESSION['refresh_token'] ?? null;
         if (!$refreshToken) {
