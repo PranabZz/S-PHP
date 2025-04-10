@@ -123,8 +123,7 @@
                         type="password" 
                         id="password" 
                         name="password" 
-                        value="<?= $data['password'] ?>" 
-                        required
+                        placeholder="Leave blank to keep current password"
                         autocomplete="new-password"
                     >
                 </div>

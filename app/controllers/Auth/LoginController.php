@@ -20,24 +20,35 @@ class LoginController extends Controller
     {
         $req = new Request;
         $request = $req->request();
-       
+
         $username = $request["username"];
         $password = $request["password"];
 
-        $query = 'SELECT * FROM `users` WHERE `username` = :username AND `password` = :password';
-        $params = array(':username' => $username, ':password' => $password);
+        $user = new User;
+
+        $query = $user->getUsername($username);
+        
+        $query = 'SELECT * FROM `users` WHERE `username` = :username';
+        $params = array(':username' => $username);
 
         $result = $this->db->query($query, $params);
 
         if (!empty($result) && is_array($result[0])) {
-            Auth::login($result[0]);
-            redirect('/home');
-        } else {
-            redirect('/login','error in login try again');
+            $user = $result[0];
+
+            if (password_verify($password, $user['password'])) {
+                Auth::login($user);
+                redirect('/home');
+                return;
+            }
         }
+
+        redirect('/login', 'Error in login, try again');
     }
 
-    public function logout(){
+
+    public function logout()
+    {
         Auth::logout();
         redirect('/login');
     }

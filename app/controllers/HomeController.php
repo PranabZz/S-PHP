@@ -11,6 +11,10 @@ use App\Services\SendMail;
 
 class HomeController
 {
+    public function welcome()
+    {
+        View::render('welcome.php');
+    }
     public function index()
     {
 
@@ -49,7 +53,11 @@ class HomeController
         $user = new User();
         $req = new Request;
         $request = $req->request();
-
+        if (!isset($request['password']) || empty($request['password'])) {
+            unset($request['password']);
+        } else {
+            $request['password'] = password_hash($request['password'], PASSWORD_BCRYPT, ['cost' => 12]);
+        }
         $user->update($request, $id);
 
         redirect('/');
