@@ -24,7 +24,7 @@ class LoginController extends Controller
         $username = $request["username"];
         $password = $request["password"];
 
-        $query = 'SELECT * FROM `user` WHERE `username` = :username AND `password` = :password';
+        $query = 'SELECT * FROM `users` WHERE `username` = :username AND `password` = :password';
         $params = array(':username' => $username, ':password' => $password);
 
         $result = $this->db->query($query, $params);
