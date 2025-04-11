@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Auth\RegisterController;
 use App\Middleware\Middleware;
 use App\Middleware\GuestMiddleware;
 use App\Core\Router;
@@ -11,12 +12,16 @@ $router = new Router();
 
 
 $router->get('/', HomeController::class, 'welcome');
+
 $router->get('/home', HomeController::class, 'index', Middleware::class);
+
 $router->get('/login', LoginController::class, 'index', GuestMiddleware::class);
-$router->post('/login', LoginController::class, 'login');
-$router->post('/logout', LoginController::class, 'logout');
-$router->get('/register', HomeController::class, 'register', GuestMiddleware::class);
-$router->post('/register', HomeController::class, 'register');
+$router->post('/login', LoginController::class, 'login', GuestMiddleware::class);
+$router->post('/logout', LoginController::class, 'logout', Middleware::class);
+
+$router->get('/register', RegisterController::class, 'index', GuestMiddleware::class);
+$router->post('/register', RegisterController::class, 'register', GuestMiddleware::class);
+
 $router->post('/create', HomeController::class, 'create');
 $router->get('/edit/{id}', HomeController::class, 'edit');
 $router->post('/update/{id}', HomeController::class, 'update');

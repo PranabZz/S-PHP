@@ -24,7 +24,7 @@ class HomeController
 
         $data = $user->select(['id', 'username']);
 
-        View::render('test.php', $data);
+        View::render('welcome.php', $data);
     }
 
     public function create()
