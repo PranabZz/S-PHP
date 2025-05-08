@@ -1,18 +1,22 @@
 {
-    "name": "pranab/s-php",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-             "App\\": "app/"
-        }
-    },
-    "authors": [
-        {
-            "name": "PranabZz",
-            "email": "pranabkca321@gmail.com"
-        }
-    ],
-    "require": {
-        "ramsey/uuid": "^4.7"
+  "name": "pranabkc/sphp",
+  "description": "Lightweight PHP framework like Laravel",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Sphp\\": "sphp/"
     }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ]
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
