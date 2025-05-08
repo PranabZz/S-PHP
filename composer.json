@@ -4,7 +4,7 @@
   "type": "project",
   "license": "MIT",
   "keywords": ["framework", "php", "lightweight", "laravel-like"],
-  "homepage": "https://github.com/pranabkc/sphp",
+  "homepage": "https://github.com/pranabkc/s-php",
   "require": {
     "php": "^8.1",
     "ext-mbstring": "*",
