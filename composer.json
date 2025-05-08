@@ -1,10 +1,10 @@
 {
-  "name": "pranabkc/sphp",
+  "name": "pranab/s-php",
   "description": "A lightweight PHP framework inspired by Laravel",
   "type": "project",
   "license": "MIT",
   "keywords": ["framework", "php", "lightweight", "laravel-like"],
-  "homepage": "https://github.com/pranabkc/s-php",
+  "homepage": "https://github.com/pranabkc/S-PHP",
   "require": {
     "php": "^8.1",
     "ext-mbstring": "*",
