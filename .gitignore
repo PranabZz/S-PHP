@@ -1,0 +1,6 @@
+node_modules
+.env
+vendor
+.vscode
+.data
+/app/services/jobs.json

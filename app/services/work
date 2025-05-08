@@ -1,0 +1,59 @@
+#!/usr/bin/env php
+<?php
+
+namespace App\Services;
+
+require_once __DIR__ . '/JobQueue.php';
+require_once __DIR__ . '/Job.php';
+
+$jobQueue = new JobQueue();
+
+echo "📢 Sending out resumes... Looking for work! 🏗️\n";
+
+
+declare(ticks=1);
+pcntl_signal(SIGTERM, function () {
+    echo "🚪 Received SIGTERM. Exiting job worker...\n";
+    exit(0);
+});
+pcntl_signal(SIGINT, function () {
+    echo "👋 Received SIGINT (Ctrl+C). Bye for now!\n";
+    exit(0);
+});
+
+
+$jobs = $jobQueue->getJobs();
+
+if (empty($jobs)) {
+    echo "😴 No jobs available... Waiting...\n";
+    sleep(2);
+    
+}
+
+echo "🎉 Got some work to do! Let's get started! 🚀\n";
+
+$jobData = $jobs[0];
+
+if (!isset($jobData['id'], $jobData['taskName'], $jobData['taskData'])) {
+    echo "⚠️ Invalid job data found. Skipping... ⏭️\n";
+    file_put_contents('error.log', "⚠️ Invalid job data: " . print_r($jobData, true) . "\n", FILE_APPEND);
+    $jobQueue->removeJobById($jobData['id'] ?? '');
+    
+}
+
+$job = new Job($jobData['taskName'], $jobData['taskData']);
+echo "🛠️ Processing job [{$jobData['id']}]: {$jobData['taskName']}...\n";
+
+try {
+    $job->execute();
+    echo "✅ Job [{$jobData['id']}] completed!\n";
+} catch (\Exception $e) {
+    echo "💥 Error executing job: {$e->getMessage()}\n";
+    file_put_contents('error.log', "💥 Job failed: " . $e->getMessage() . "\n", FILE_APPEND);
+}
+
+$jobQueue->removeJobById($jobData['id']);
+echo "🧹 Job [{$jobData['id']}] removed from queue. 🎯\n";
+
+
+

@@ -1,0 +1,27 @@
+{
+  "name": "s-php",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <img src=\"./logo.png\" alt=\"Logo\" width=\"100\" height=\"auto\"> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PranabZz/S-PHP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/PranabZz/S-PHP/issues"
+  },
+  "homepage": "https://github.com/PranabZz/S-PHP#readme",
+  "devDependencies": {
+    "tailwindcss": "^4.1.5"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.5"
+  }
+}
