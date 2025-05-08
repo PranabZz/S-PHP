@@ -14,21 +14,12 @@
     "psr-4": {
       "App\\": "app/",
       "Sphp\\": "sphp/"
-    },
-    "files": [
-      "sphp/helpers.php"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
     }
   },
   "scripts": {
     "post-create-project-cmd": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "test": "phpunit"
+    ]
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
