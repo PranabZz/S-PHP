@@ -18,7 +18,8 @@
   },
   "scripts": {
     "post-create-project-cmd": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php do migrate"
     ]
   },
   "minimum-stability": "stable",
