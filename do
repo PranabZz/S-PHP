@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/sphp/Command.php';
+require_once __DIR__ . '/Command.php';
 
 /**
  * CLI entry point for the Command utility
