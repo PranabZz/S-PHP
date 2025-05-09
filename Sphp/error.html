@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Help Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b6b;
+            --primary-dark: #ff5252;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --error-light: rgba(255, 107, 107, 0.05);
+            --error-border: rgba(255, 107, 107, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .error-column {
+            flex: 1;
+            padding: 48px;
+            transition: all 0.3s ease;
+        }
+
+        .error-column:first-child {
+            background: var(--bg-primary);
+            border-right: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 32px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--primary-color);
+            transition: fill 0.3s ease;
+        }
+
+        .icon svg:hover {
+            fill: var(--primary-dark);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            color: var(--primary-color);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .error-details {
+            background: var(--error-light);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--error-border);
+            margin-top: 24px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .error-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.1);
+        }
+
+        .error-code {
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            margin-top: 36px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px var(--shadow-color);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .primary-button {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .secondary-button {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .secondary-button:hover {
+            background: var(--bg-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 16px;
+            }
+
+            .error-column {
+                padding: 32px;
+            }
+
+            .error-column:first-child {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #1a1a1a;
+                --bg-secondary: #2d2d2d;
+                --text-primary: #ffffff;
+                --text-secondary: #a0a0a0;
+                --shadow-color: rgba(0, 0, 0, 0.3);
+                --error-light: rgba(255, 107, 107, 0.1);
+                --error-border: rgba(255, 107, 107, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-column">
+            <div class="icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z"/>
+                </svg>
+            </div>
+            <h1>We Hit a Snag</h1>
+            <p>Don't worry! This is usually easy to fix. Here's what went wrong:</p>
+            <div class="error-details">
+                <strong>Error Details:</strong>
+                <p id="error-message">Loading...</p>
+                <div class="error-code" id="error-code"></div>
+            </div>
+            <div class="action-buttons">
+                <button class="button primary-button" onclick="window.location.reload()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                    Try Again
+                </button>
+                <button class="button secondary-button" onclick="window.history.back()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Go Back
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const errorMessage = params.get('error') || "Unknown error occurred.";
+        document.getElementById('error-message').textContent = decodeURIComponent(errorMessage);
+    </script>
+</body>
+</html>
