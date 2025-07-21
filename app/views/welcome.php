@@ -13,11 +13,11 @@
             <p class="text-xl text-gray-700 mb-12">Hope you enjoy learning backend</p>
 
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="https://github.com/sphp-framework"
+                <a href="https://github.com/pranabZz/S-PHP"
                     class="bg-black text-white px-8 py-3 rounded-md hover:bg-gray-800 transition-colors">
                     GitHub
                 </a>
-                <a href="/docs"
+                <a href="https://docs-delta-amber.vercel.app/"
                     class="bg-white text-black px-8 py-3 border-2 border-black rounded-md hover:bg-gray-100 transition-colors">
                     Documentation
                 </a>
@@ -28,11 +28,11 @@
 
     <footer class="mt-auto py-8 border-t border-gray-200">
         <div class="max-w-4xl mx-auto px-4 flex justify-center items-center space-x-8 text-gray-600">
-            <a href="/contribute" class="hover:text-black transition-colors">Contribute</a>
+            <a href="https://github.com/pranabZz/S-PHP" class="hover:text-black transition-colors">Contribute</a>
             <span class="text-gray-300">|</span>
-            <a href="/writerspace" class="hover:text-black transition-colors">Writerspace</a>
+            <a href="https://artisantechsolution.com/" class="hover:text-black transition-colors">Writerspace</a>
             <span class="text-gray-300">|</span>
-            <a href="/docs" class="hover:text-black transition-colors">Docs</a>
+            <a href="https://docs-delta-amber.vercel.app/" class="hover:text-black transition-colors">Docs</a>
         </div>
     </footer>
 </body>
